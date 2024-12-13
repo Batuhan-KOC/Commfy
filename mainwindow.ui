@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>898</width>
+    <height>677</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>671</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="centralMasterLayout">
+     <item>
+      <widget class="QTabWidget" name="centralTabWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="monitoringTab">
+        <attribute name="title">
+         <string>Monitor</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="rulesTab">
+        <attribute name="title">
+         <string>Rules</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="loggingTab">
+        <attribute name="title">
+         <string>Log</string>
+        </attribute>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>898</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="controlPanel">
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::NoDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>221</width>
+       <height>591</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="controlPanelMasterLayout">
+      <item>
+       <widget class="QLabel" name="protocolSelectionLayout">
+        <property name="text">
+         <string>Protocol</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="protocolSelection">
+        <item>
+         <property name="text">
+          <string>UDP</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TCP</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SERIAL</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="controlPanelFromInformationLayout">
+        <item>
+         <widget class="QLabel" name="controlPanelToIpInformation">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>To Ip</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="controlPanelToPortInformation">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>To Port</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="controlPanelToLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="toIp">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="toPort">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>65535</number>
+          </property>
+          <property name="value">
+           <number>5555</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="controlPanelToInformationLayout">
+        <item>
+         <widget class="QLabel" name="controlPanelFromIpInformation">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>From Ip</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="controlPanelFromPortInformation">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>From Port</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="controlPanelFromLayout">
+        <item>
+         <widget class="QLineEdit" name="fromIp">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>22</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="fromPort">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>65535</number>
+          </property>
+          <property name="value">
+           <number>5555</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="txRxLayout">
+        <item>
+         <widget class="QCheckBox" name="txCheckbox">
+          <property name="text">
+           <string>TX</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="rxCheckbox">
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text">
+           <string>RX</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="serialDeviceInformation">
+        <property name="text">
+         <string>Serial Device</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="serialDeviceCombobox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="baudrateInformation">
+        <property name="text">
+         <string>Baudrate</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="baudrateCombobox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="flowControlInformation">
+        <property name="text">
+         <string>Flow Control</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="flowControlCombobox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="parityInformation">
+        <property name="text">
+         <string>Parity</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="parityCombobox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stopBitInformation">
+        <property name="text">
+         <string>Stop Bit</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="stopBitCombobox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="openCloseButton">
+        <property name="text">
+         <string>Open</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
