@@ -29,6 +29,9 @@ public:
     // Create a new session based on new session name and location. Return true if success
     bool CreateNewSession(QString name, QString location);
 
+    // Open an existing session by it's file location
+    bool OpenSession(QString location);
+
     // Adding the session file path to the SESSION_FILE_NAME file
     void AddNewSessionToTheSessionsFile(QString sessionFilePath);
 

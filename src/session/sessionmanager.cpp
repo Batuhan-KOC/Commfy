@@ -147,6 +147,29 @@ bool SessionManager::CreateNewSession(QString name, QString location)
     return true;
 }
 
+bool SessionManager::OpenSession(QString location)
+{
+    // If there is an existing session save it, close it, delete it
+    if(activeSession != nullptr){
+        SaveActiveSession();
+        CloseActiveSession();
+        DeleteActiveSession();
+    }
+
+    activeSession = new SessionType();
+
+    // Parse session elements from file location
+    QFileInfo fileInfo(location);
+
+    QString sessionName = fileInfo.baseName();
+    QString sessionFileLocation = location;
+    QString sessionFolderLocation = fileInfo.absolutePath();
+
+    activeSession->InstantiateSession(sessionName, sessionFileLocation, sessionFolderLocation);
+
+    return true;
+}
+
 void SessionManager::AddNewSessionToTheSessionsFile(QString sessionFilePath)
 {
     // Open the session file

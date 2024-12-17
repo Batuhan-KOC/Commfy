@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <QFileDialog>
+#include <QStandardPaths>
+
 #include <Qsci/qscilexerpython.h>
 
 #include "src/ui/createnewsessiondialog.h"
@@ -22,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect menu actions
     connect(ui->actionCreateNewSession, SIGNAL(triggered()), this, SLOT(CreateNewSessionActionTriggered()));
+
+    connect(ui->actionOpenSession, SIGNAL(triggered()), this, SLOT(OpenSessionActionTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -111,6 +116,33 @@ void MainWindow::CreateNewSessionActionTriggered()
     dialog.exec();
 
     disconnect(&dialog, SIGNAL(NewSessionNameAndLocationChosen(QString,QString)), this, SLOT(NewSessionNameAndLocationChosen(QString,QString)));
+}
+
+void MainWindow::OpenSessionActionTriggered()
+{
+    // Create a file dialog
+    QFileDialog dialog(this, "Open Commfy File");
+
+    // Set the file mode to existing file
+    dialog.setFileMode(QFileDialog::ExistingFile);
+
+    dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+
+    // Set the name filter for ".commfy" files
+    dialog.setNameFilter("Commfy files (*.commfy)");
+
+    if(dialog.exec() == QDialog::Accepted){
+        QStringList selectedFiles = dialog.selectedFiles();
+
+        if(selectedFiles.size() > 0){
+            QString filePath = selectedFiles.first();
+
+            bool result = sessionManager->OpenSession(filePath);
+
+            // Enable widgets if session is opened successfully
+            SetEnableWidgets(result);
+        }
+    }
 }
 
 void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation)

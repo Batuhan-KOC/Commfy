@@ -40,6 +40,9 @@ private slots:
     // Invoked by create new session action to open a create session dialog
     void CreateNewSessionActionTriggered();
 
+    // Invoked by open session action to open a file dialog to choose a commfy file
+    void OpenSessionActionTriggered();
+
     // Create new session dialog has returned a name and location. Create a new session based on these values
     void NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation);
 };
