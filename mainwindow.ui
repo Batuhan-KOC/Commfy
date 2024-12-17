@@ -27,7 +27,7 @@
      <item>
       <widget class="QTabWidget" name="centralTabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="monitoringTab">
         <attribute name="title">
@@ -58,7 +58,11 @@
           <item>
            <layout class="QHBoxLayout" name="monitoringTabLayout2" stretch="9,1">
             <item>
-             <widget class="QTableWidget" name="monitorScreen"/>
+             <widget class="QTableWidget" name="monitorScreen">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="monitoringTabLayout3">
@@ -71,6 +75,9 @@
               </item>
               <item>
                <widget class="QComboBox" name="displayTypeCombobox">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <item>
                  <property name="text">
                   <string>String</string>
@@ -90,6 +97,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="clearMonitorScreenButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Clear</string>
                 </property>
@@ -145,12 +155,20 @@
            <number>5</number>
           </property>
           <item>
-           <widget class="QsciScintilla" name="rulesEditor" native="true"/>
+           <widget class="QsciScintilla" name="rulesEditor" native="true">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QListView" name="rulesListView"/>
+             <widget class="QListView" name="rulesListView">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="ruleEditLayout">
@@ -162,6 +180,9 @@
               </property>
               <item>
                <widget class="QPushButton" name="newRuleButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -175,6 +196,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="deleteRuleButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -198,6 +222,9 @@
               </property>
               <item>
                <widget class="QPushButton" name="enableAllRulesButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -211,6 +238,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="disableAllRulesButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -302,6 +332,9 @@
       </item>
       <item>
        <widget class="QComboBox" name="protocolSelection">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <item>
          <property name="text">
           <string>UDP</string>
@@ -362,6 +395,9 @@
         </property>
         <item>
          <widget class="QLineEdit" name="toIp">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -372,6 +408,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="toPort">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -431,6 +470,9 @@
        <layout class="QHBoxLayout" name="controlPanelFromLayout">
         <item>
          <widget class="QLineEdit" name="fromIp">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -441,6 +483,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="fromPort">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>60</width>
@@ -461,6 +506,9 @@
        <layout class="QHBoxLayout" name="txRxLayout">
         <item>
          <widget class="QCheckBox" name="txCheckbox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>TX</string>
           </property>
@@ -468,6 +516,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="rxCheckbox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -550,6 +601,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="openCloseButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Open</string>
         </property>
