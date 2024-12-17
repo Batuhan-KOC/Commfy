@@ -27,7 +27,7 @@
      <item>
       <widget class="QTabWidget" name="centralTabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="monitoringTab">
         <attribute name="title">
@@ -38,6 +38,24 @@
         <attribute name="title">
          <string>Rules</string>
         </attribute>
+        <widget class="QWidget" name="horizontalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>641</width>
+           <height>371</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="rulesTabLayout" stretch="8,2">
+          <item>
+           <widget class="QWidget" name="rulesEditor" native="true"/>
+          </item>
+          <item>
+           <widget class="QListView" name="rulesListView"/>
+          </item>
+         </layout>
+        </widget>
        </widget>
        <widget class="QWidget" name="loggingTab">
         <attribute name="title">

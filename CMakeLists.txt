@@ -12,6 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+set(QSCINTILLA_INCLUDE_DIR "" CACHE PATH "Path to QScintilla include directory")
+set(QSCINTILLA_LIBRARY "" CACHE FILEPATH "Path to QScintilla library directory")
+
+include_directories(${QSCINTILLA_INCLUDE_DIR})
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -43,6 +48,8 @@ else()
 endif()
 
 target_link_libraries(Commfy PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+target_link_libraries(Commfy PRIVATE ${QSCINTILLA_LIBRARY})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexerpython.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -19,5 +22,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    QsciScintilla *editor;
+    void SetupRuleEditor();
 };
 #endif // MAINWINDOW_H
