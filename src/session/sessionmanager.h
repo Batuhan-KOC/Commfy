@@ -32,6 +32,9 @@ public:
     // Open an existing session by it's file location
     bool OpenSession(QString location);
 
+    // Return the current session protocol type
+    SessionSettings GetActiveSettings(bool& ok);
+
     // Start session execution
     void StartSession();
 
@@ -53,10 +56,15 @@ public:
     // Deletes the active session object and assign it to null
     void DeleteActiveSession();
 
+    // Handle UI session variable changes
+    void SessionSettingsValueChanged(SessionSettingsType type, QVariant value);
+
 private:
     SessionType* activeSession{nullptr};
 
 signals:
+    // Inform mainwindow to make it update the gui content from session's settings
+    void UpdateSettingsWidgetsOnUI();
 };
 
 #endif // SESSIONMANAGER_H

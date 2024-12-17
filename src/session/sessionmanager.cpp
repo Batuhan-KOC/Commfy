@@ -167,7 +167,25 @@ bool SessionManager::OpenSession(QString location)
 
     activeSession->InstantiateSession(sessionName, sessionFileLocation, sessionFolderLocation);
 
+    activeSession->UpdateSessionParametersFromSessionFile();
+
+    emit UpdateSettingsWidgetsOnUI();
+
     return true;
+}
+
+SessionSettings SessionManager::GetActiveSettings(bool &ok)
+{
+    SessionSettings settings;
+
+    if(activeSession == nullptr){
+        ok = false;
+        return settings;
+    }
+
+    ok = true;
+
+    return activeSession->GetSettings();
 }
 
 void SessionManager::StartSession()
@@ -234,3 +252,11 @@ void SessionManager::DeleteActiveSession()
 
     activeSession = nullptr;
 }
+
+void SessionManager::SessionSettingsValueChanged(SessionSettingsType type, QVariant value)
+{
+    if(activeSession != nullptr){
+        activeSession->ChangeSettingsValue(type, value);
+    }
+}
+
