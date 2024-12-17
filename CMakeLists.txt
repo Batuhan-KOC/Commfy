@@ -28,6 +28,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Commfy
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        src/session/sessionmanager.h src/session/sessionmanager.cpp
+        src/ui/createnewsessiondialog.h src/ui/createnewsessiondialog.cpp src/ui/createnewsessiondialog.ui
+        src/session/sessiontype.h src/session/sessiontype.cpp
+
+
+
+        src/util/utilities.h src/util/utilities.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Commfy APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -71,6 +78,11 @@ install(TARGETS Commfy
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+# Define DEBUG macro for debug builds
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DDEBUG_BUILD)
+endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Commfy)
