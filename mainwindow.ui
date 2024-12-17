@@ -27,12 +27,96 @@
      <item>
       <widget class="QTabWidget" name="centralTabWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="monitoringTab">
         <attribute name="title">
          <string>Monitor</string>
         </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>30</y>
+           <width>581</width>
+           <height>311</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitoringTabLayout1">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="monitoringTabLayout2" stretch="9,1">
+            <item>
+             <widget class="QTableWidget" name="monitorScreen"/>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="monitoringTabLayout3">
+              <item>
+               <widget class="QLabel" name="displayTypeLabel">
+                <property name="text">
+                 <string>Display Type</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="displayTypeCombobox">
+                <item>
+                 <property name="text">
+                  <string>String</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Hex</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Binary</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clearMonitorScreenButton">
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QWidget" name="monitorGraph" native="true"/>
+          </item>
+         </layout>
+        </widget>
        </widget>
        <widget class="QWidget" name="rulesTab">
         <attribute name="title">
@@ -47,12 +131,100 @@
            <height>371</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="rulesTabLayout" stretch="8,2">
+         <layout class="QHBoxLayout" name="rulesTabLayout" stretch="8,0">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
           <item>
-           <widget class="QWidget" name="rulesEditor" native="true"/>
+           <widget class="QsciScintilla" name="rulesEditor" native="true"/>
           </item>
           <item>
-           <widget class="QListView" name="rulesListView"/>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QListView" name="rulesListView"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="ruleEditLayout">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="newRuleButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>New Rule</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="deleteRuleButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Delete Rule</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="ruleEnablementButtonsLayout">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="enableAllRulesButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Enable All</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="disableAllRulesButton">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Disable All</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -76,6 +248,16 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionCreate_New_Session"/>
+    <addaction name="actionOpen_Session"/>
+    <addaction name="actionClose_Session"/>
+    <addaction name="actionSave_Session"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="controlPanel">
@@ -105,6 +287,12 @@
       </rect>
      </property>
      <layout class="QVBoxLayout" name="controlPanelMasterLayout">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
       <item>
        <widget class="QLabel" name="protocolSelectionLayout">
         <property name="text">
@@ -384,7 +572,35 @@
     </widget>
    </widget>
   </widget>
+  <action name="actionCreate_New_Session">
+   <property name="text">
+    <string>Create New Session</string>
+   </property>
+  </action>
+  <action name="actionOpen_Session">
+   <property name="text">
+    <string>Open Session</string>
+   </property>
+  </action>
+  <action name="actionClose_Session">
+   <property name="text">
+    <string>Close Session</string>
+   </property>
+  </action>
+  <action name="actionSave_Session">
+   <property name="text">
+    <string>Save Session</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QsciScintilla</class>
+   <extends>QWidget</extends>
+   <header location="global">Qsci/qsciscintilla.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

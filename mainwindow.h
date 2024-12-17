@@ -23,7 +23,6 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QsciScintilla *editor;
     void SetupRuleEditor();
 };
 #endif // MAINWINDOW_H

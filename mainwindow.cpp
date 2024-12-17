@@ -7,10 +7,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Layout management
     ui->dockWidgetContents->setLayout(ui->controlPanelMasterLayout);
     ui->centralwidget->setLayout(ui->centralMasterLayout);
-
     ui->rulesTab->setLayout(ui->rulesTabLayout);
+    ui->monitoringTab->setLayout(ui->monitoringTabLayout1);
+
+    SetupRuleEditor();
 }
 
 MainWindow::~MainWindow()
@@ -20,26 +23,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::SetupRuleEditor()
 {
-    // Initialize QsciScintilla editor
-    editor = new QsciScintilla(this);
-
     // Set lexer for Python
     QsciLexerPython *lexer = new QsciLexerPython();
-    editor->setLexer(lexer);
+    ui->rulesEditor->setLexer(lexer);
 
     // Set auto-completion
-    editor->setAutoCompletionSource(QsciScintilla::AcsAll);
-    editor->setAutoCompletionCaseSensitivity(false);
-    editor->setAutoCompletionReplaceWord(true);
-    editor->setAutoCompletionUseSingle(QsciScintilla::AcusAlways);
+    ui->rulesEditor->setAutoCompletionSource(QsciScintilla::AcsAll);
+    ui->rulesEditor->setAutoCompletionCaseSensitivity(false);
+    ui->rulesEditor->setAutoCompletionReplaceWord(true);
+    ui->rulesEditor->setAutoCompletionUseSingle(QsciScintilla::AcusAlways);
 
     // Set other editor properties
-    editor->setUtf8(true);
-    editor->setFolding(QsciScintilla::BoxedTreeFoldStyle);
-    editor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
-    editor->setTabWidth(4);
-
-    QVBoxLayout *layout = new QVBoxLayout(ui->rulesEditor);
-    layout->addWidget(editor);
-    ui->rulesEditor->setLayout(layout);
+    ui->rulesEditor->setUtf8(true);
+    ui->rulesEditor->setFolding(QsciScintilla::BoxedTreeFoldStyle);
+    ui->rulesEditor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+    ui->rulesEditor->setTabWidth(4);
 }
