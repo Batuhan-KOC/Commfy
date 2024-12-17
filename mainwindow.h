@@ -32,5 +32,11 @@ private:
 
 private slots:
     void OpenRecentFile();
+
+    // Invoked by create new session action to open a create session dialog
+    void CreateNewSessionActionTriggered();
+
+    // Create new session dialog has returned a name and location. Create a new session based on these values
+    void NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation);
 };
 #endif // MAINWINDOW_H

@@ -3,6 +3,8 @@
 
 #include <Qsci/qscilexerpython.h>
 
+#include "src/ui/createnewsessiondialog.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -18,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     SetupRuleEditor();
 
     InitializeSessionManager();
+
+    // Connect menu actions
+    connect(ui->actionCreateNewSession, SIGNAL(triggered()), this, SLOT(CreateNewSessionActionTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -82,4 +87,20 @@ void MainWindow::InitializeSessionManager()
 void MainWindow::OpenRecentFile()
 {
 
+}
+
+void MainWindow::CreateNewSessionActionTriggered()
+{
+    CreateNewSessionDialog dialog;
+
+    connect(&dialog, SIGNAL(NewSessionNameAndLocationChosen(QString,QString)), this, SLOT(NewSessionNameAndLocationChosen(QString,QString)));
+
+    dialog.exec();
+
+    disconnect(&dialog, SIGNAL(NewSessionNameAndLocationChosen(QString,QString)), this, SLOT(NewSessionNameAndLocationChosen(QString,QString)));
+}
+
+void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation)
+{
+    sessionManager->CreateNewSession(sessionName, sessionLocation);
 }

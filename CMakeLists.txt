@@ -29,6 +29,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         src/session/sessionmanager.h src/session/sessionmanager.cpp
+        src/ui/createnewsessiondialog.h src/ui/createnewsessiondialog.cpp src/ui/createnewsessiondialog.ui
+        src/session/sessiontype.h src/session/sessiontype.cpp
+
+
+
+        src/util/utilities.h src/util/utilities.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Commfy APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
