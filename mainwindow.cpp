@@ -11,11 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Layout management
-    ui->dockWidgetContents->setLayout(ui->controlPanelMasterLayout);
-    ui->centralwidget->setLayout(ui->centralMasterLayout);
-    ui->rulesTab->setLayout(ui->rulesTabLayout);
-    ui->monitoringTab->setLayout(ui->monitoringTabLayout1);
+    // Set all the widgets on the screen disabled at first
+    SetEnableWidgets(false);
+
+    InitializeLayoutsAndOtherWidgets();
 
     SetupRuleEditor();
 
@@ -84,6 +83,20 @@ void MainWindow::InitializeSessionManager()
 
 }
 
+void MainWindow::SetEnableWidgets(bool enable)
+{
+    ui->controlPanelContents->setEnabled(enable);
+    ui->centralTabWidget->setEnabled(enable);
+}
+
+void MainWindow::InitializeLayoutsAndOtherWidgets()
+{
+    ui->controlPanelContents->setLayout(ui->controlPanelMasterLayout);
+    ui->centralwidget->setLayout(ui->centralMasterLayout);
+    ui->rulesTab->setLayout(ui->rulesTabLayout);
+    ui->monitoringTab->setLayout(ui->monitoringTabLayout1);
+}
+
 void MainWindow::OpenRecentFile()
 {
 
@@ -102,5 +115,12 @@ void MainWindow::CreateNewSessionActionTriggered()
 
 void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation)
 {
-    sessionManager->CreateNewSession(sessionName, sessionLocation);
+    bool sessionCreatedSuccess = sessionManager->CreateNewSession(sessionName, sessionLocation);
+
+    // If session creation is success, enable widgets
+    SetEnableWidgets(sessionCreatedSuccess);
+
+    // Enable the close and save actions if session creation is successfull
+    ui->actionCloseSession->setEnabled(sessionCreatedSuccess);
+    ui->actionSaveSession->setEnabled(sessionCreatedSuccess);
 }

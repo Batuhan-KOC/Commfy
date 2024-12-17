@@ -79,6 +79,11 @@ install(TARGETS Commfy
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Define DEBUG macro for debug builds
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DDEBUG_BUILD)
+endif()
+
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Commfy)
 endif()

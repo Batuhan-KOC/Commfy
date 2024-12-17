@@ -71,7 +71,7 @@ QStringList SessionManager::ReadSessionsFile()
     return sessionsList;
 }
 
-void SessionManager::CreateNewSession(QString name, QString location)
+bool SessionManager::CreateNewSession(QString name, QString location)
 {
     // Convert location to a QDir
     QDir dir(location);
@@ -86,7 +86,7 @@ void SessionManager::CreateNewSession(QString name, QString location)
         if (!sessionDir.removeRecursively())
         {
             qDebug() << "Failed to remove existing directory:" << sessionFolderPath;
-            return;
+            return false;
         }
     }
 
@@ -94,7 +94,7 @@ void SessionManager::CreateNewSession(QString name, QString location)
     if (!dir.mkdir(name))
     {
         qDebug() << "Failed to create directory:" << name;
-        return;
+        return false;
     }
 
     dir.cd(name);
@@ -103,7 +103,7 @@ void SessionManager::CreateNewSession(QString name, QString location)
     if (!dir.mkdir(SESSION_PYTHON_FOLDER_NAME))
     {
         qDebug() << "Failed to create directory:" << SESSION_PYTHON_FOLDER_NAME;
-        return;
+        return false;
     }
 
     dir.cdUp();
@@ -114,13 +114,13 @@ void SessionManager::CreateNewSession(QString name, QString location)
     if (!pythonDir.exists())
     {
         qDebug() << "Source python folder does not exist:" << pythonFolderPath;
-        return;
+        return false;
     }
 
     if (!CopyDirectory(pythonFolderPath, sessionFolderPath + "/" + SESSION_PYTHON_FOLDER_NAME))
     {
         qDebug() << "Failed to copy python directory to session folder";
-        return;
+        return false;
     }
 
     // Create the <name>.commfy file
@@ -129,7 +129,7 @@ void SessionManager::CreateNewSession(QString name, QString location)
     if (!commfyFile.open(QIODevice::WriteOnly))
     {
         qDebug() << "Failed to create .commfy file:" << commfyFilePath;
-        return;
+        return false;
     }
     commfyFile.close();
 
@@ -143,6 +143,8 @@ void SessionManager::CreateNewSession(QString name, QString location)
     }
 
     InstantiateActiveSession(name, commfyFilePath, sessionFolderPath);
+
+    return true;
 }
 
 void SessionManager::AddNewSessionToTheSessionsFile(QString sessionFilePath)

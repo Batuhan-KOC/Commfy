@@ -9,7 +9,11 @@
 
 #define SESSION_PYTHON_FOLDER_NAME "python"
 #define SOURCE_PYTHON_FOLDER_NAME "python"
+#ifdef DEBUG_BUILD
 #define SOURCE_PYTHON_FOLDER_RELATIVE_PATH_COMPLETER "/../"
+#else
+#define SOURCE_PYTHON_FOLDER_RELATIVE_PATH_COMPLETER "/"
+#endif
 
 #define SESSION_FILE_NAME "sessions.commfy"
 
@@ -22,8 +26,8 @@ public:
     // Read a session file. If not exist, create one
     QStringList ReadSessionsFile();
 
-    // Create a new session based on new session name and location
-    void CreateNewSession(QString name, QString location);
+    // Create a new session based on new session name and location. Return true if success
+    bool CreateNewSession(QString name, QString location);
 
     // Adding the session file path to the SESSION_FILE_NAME file
     void AddNewSessionToTheSessionsFile(QString sessionFilePath);

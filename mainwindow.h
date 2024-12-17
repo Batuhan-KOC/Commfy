@@ -29,6 +29,10 @@ private:
     void SetupRuleEditor();
     // Initialize session manager and get the recent session locations
     void InitializeSessionManager();
+    // Enable commfy subwidgets
+    void SetEnableWidgets(bool enable);
+    // Some widgets and layouts requires initializaiton. Performing them here
+    void InitializeLayoutsAndOtherWidgets();
 
 private slots:
     void OpenRecentFile();

@@ -26,10 +26,16 @@
     <layout class="QVBoxLayout" name="centralMasterLayout">
      <item>
       <widget class="QTabWidget" name="centralTabWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
        <widget class="QWidget" name="monitoringTab">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <attribute name="title">
          <string>Monitor</string>
         </attribute>
@@ -60,7 +66,7 @@
             <item>
              <widget class="QTableWidget" name="monitorScreen">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -76,7 +82,7 @@
               <item>
                <widget class="QComboBox" name="displayTypeCombobox">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <item>
                  <property name="text">
@@ -98,7 +104,7 @@
               <item>
                <widget class="QPushButton" name="clearMonitorScreenButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="text">
                  <string>Clear</string>
@@ -129,6 +135,9 @@
         </widget>
        </widget>
        <widget class="QWidget" name="rulesTab">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <attribute name="title">
          <string>Rules</string>
         </attribute>
@@ -157,7 +166,7 @@
           <item>
            <widget class="QsciScintilla" name="rulesEditor" native="true">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -181,7 +190,7 @@
               <item>
                <widget class="QPushButton" name="newRuleButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="maximumSize">
                  <size>
@@ -197,7 +206,7 @@
               <item>
                <widget class="QPushButton" name="deleteRuleButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="maximumSize">
                  <size>
@@ -223,7 +232,7 @@
               <item>
                <widget class="QPushButton" name="enableAllRulesButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="maximumSize">
                  <size>
@@ -239,7 +248,7 @@
               <item>
                <widget class="QPushButton" name="disableAllRulesButton">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="maximumSize">
                  <size>
@@ -260,6 +269,9 @@
         </widget>
        </widget>
        <widget class="QWidget" name="loggingTab">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <attribute name="title">
          <string>Log</string>
         </attribute>
@@ -275,7 +287,7 @@
      <x>0</x>
      <y>0</y>
      <width>898</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -300,7 +312,7 @@
    <property name="minimumSize">
     <size>
      <width>200</width>
-     <height>40</height>
+     <height>46</height>
     </size>
    </property>
    <property name="features">
@@ -312,7 +324,10 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="controlPanelContents">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
@@ -339,7 +354,7 @@
       <item>
        <widget class="QComboBox" name="protocolSelection">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <item>
          <property name="text">
@@ -402,7 +417,7 @@
         <item>
          <widget class="QLineEdit" name="toIp">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximumSize">
            <size>
@@ -415,7 +430,7 @@
         <item>
          <widget class="QSpinBox" name="toPort">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="minimumSize">
            <size>
@@ -477,7 +492,7 @@
         <item>
          <widget class="QLineEdit" name="fromIp">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximumSize">
            <size>
@@ -490,7 +505,7 @@
         <item>
          <widget class="QSpinBox" name="fromPort">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="minimumSize">
            <size>
@@ -513,7 +528,7 @@
         <item>
          <widget class="QCheckBox" name="txCheckbox">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="text">
            <string>TX</string>
@@ -523,7 +538,7 @@
         <item>
          <widget class="QCheckBox" name="rxCheckbox">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
@@ -545,7 +560,7 @@
       <item>
        <widget class="QComboBox" name="serialDeviceCombobox">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -559,7 +574,7 @@
       <item>
        <widget class="QComboBox" name="baudrateCombobox">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -573,7 +588,7 @@
       <item>
        <widget class="QComboBox" name="flowControlCombobox">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -587,7 +602,7 @@
       <item>
        <widget class="QComboBox" name="parityCombobox">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -601,14 +616,14 @@
       <item>
        <widget class="QComboBox" name="stopBitCombobox">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="openCloseButton">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>Open</string>
