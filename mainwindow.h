@@ -33,8 +33,13 @@ private:
     void SetEnableWidgets(bool enable);
     // Some widgets and layouts requires initializaiton. Performing them here
     void InitializeLayoutsAndOtherWidgets();
+    // Set warning alarm icon and text visibility
+    void SetSaveNeededWarningVisible(bool visible);
 
 private slots:
+    // Update ui elements from session's settings
+    void UpdateSettingsWidgetsOnUI();
+
     void OpenRecentFile();
 
     // Invoked by create new session action to open a create session dialog
@@ -46,7 +51,26 @@ private slots:
     // Create new session dialog has returned a name and location. Create a new session based on these values
     void NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation);
 
+    // Send save session request to session manager
+    void SaveSessionActionTriggered();
+
+    //*******************************
+    // Session Parameter Change Slots
+    //*******************************
+
     // Session type option is updated on the ui
-    void SessionProtocolTypeUpdated(int index);
+    void ProtocolTypeChanged(int index);
+    void ToIpChanged(QString value);
+    void ToPortChanged(int value);
+    void FromIpChanged(QString value);
+    void FromPortChanged(int value);
+    void TxValueChanged(Qt::CheckState value);
+    void RxValueChanged(Qt::CheckState value);
+    void SerialDeviceChanged(QString value);
+    void BaudrateChanged(int index);
+    void FlowControlChanged(int index);
+    void ParityChanged(int index);
+    void StopBitsChanged(int index);
+    void ByteSizeChanged(int index);
 };
 #endif // MAINWINDOW_H

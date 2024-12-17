@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Set all the widgets on the screen disabled at first
     SetEnableWidgets(false);
 
+    // No save needed at startup
+    SetSaveNeededWarningVisible(false);
+
     InitializeLayoutsAndOtherWidgets();
 
     SetupRuleEditor();
@@ -25,8 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect menu actions
     connect(ui->actionCreateNewSession, SIGNAL(triggered()), this, SLOT(CreateNewSessionActionTriggered()));
-
     connect(ui->actionOpenSession, SIGNAL(triggered()), this, SLOT(OpenSessionActionTriggered()));
+    connect(ui->actionSaveSession, SIGNAL(triggered()), this, SLOT(SaveSessionActionTriggered()));
 }
 
 MainWindow::~MainWindow()
@@ -56,6 +59,8 @@ void MainWindow::SetupRuleEditor()
 void MainWindow::InitializeSessionManager()
 {
     sessionManager = new SessionManager(this);
+
+    connect(sessionManager, SIGNAL(UpdateSettingsWidgetsOnUI()), this, SLOT(UpdateSettingsWidgetsOnUI()));
 
     QStringList recentSessions = sessionManager->ReadSessionsFile();
 
@@ -101,7 +106,53 @@ void MainWindow::InitializeLayoutsAndOtherWidgets()
     ui->rulesTab->setLayout(ui->rulesTabLayout);
     ui->monitoringTab->setLayout(ui->monitoringTabLayout1);
 
-    connect(ui->protocolSelection, SIGNAL(currentIndexChanged(int)), this, SLOT(SessionProtocolTypeUpdated(int)));
+    connect(ui->protocolSelection, SIGNAL(currentIndexChanged(int)), this, SLOT(ProtocolTypeChanged(int)));
+    connect(ui->toIp, SIGNAL(textEdited(QString)), this, SLOT(ToIpChanged(QString)));
+    connect(ui->toPort, SIGNAL(valueChanged(int)), this, SLOT(ToPortChanged(int)));
+    connect(ui->fromIp, SIGNAL(textEdited(QString)), this, SLOT(FromIpChanged(QString)));
+    connect(ui->fromPort, SIGNAL(valueChanged(int)), this, SLOT(FromPortChanged(int)));
+    connect(ui->txCheckbox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(TxValueChanged(Qt::CheckState)));
+    connect(ui->rxCheckbox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(RxValueChanged(Qt::CheckState)));
+    connect(ui->serialDeviceCombobox, SIGNAL(currentTextChanged(QString)), this, SLOT(SerialDeviceChanged(QString)));
+    connect(ui->baudrateCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(BaudrateChanged(int)));
+    connect(ui->flowControlCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(FlowControlChanged(int)));
+    connect(ui->parityCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(ParityChanged(int)));
+    connect(ui->stopBitCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(StopBitsChanged(int)));
+    connect(ui->byteSizeCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(ByteSizeChanged(int)));
+}
+
+void MainWindow::SetSaveNeededWarningVisible(bool visible)
+{
+    ui->alarmIcon->setVisible(visible);
+    ui->saveNeededLabel->setVisible(visible);
+}
+
+void MainWindow::UpdateSettingsWidgetsOnUI()
+{
+    bool ok = false;
+
+    SessionSettings settings = sessionManager->GetActiveSettings(ok);
+
+    if(ok){
+        ui->protocolSelection->setCurrentIndex(static_cast<int>(settings.protocol));
+        ui->toIp->setText(settings.toIp);
+        ui->toPort->setValue(settings.toPort);
+        ui->fromIp->setText(settings.fromIp);
+        ui->fromPort->setValue(settings.fromPort);
+        ui->txCheckbox->setChecked(settings.txEnabled);
+        ui->rxCheckbox->setChecked(settings.rxEnabled);
+        if(!settings.serialDevice.isEmpty()){
+            ui->serialDeviceCombobox->addItem(settings.serialDevice);
+            ui->serialDeviceCombobox->setCurrentText(settings.serialDevice);
+        }
+        ui->baudrateCombobox->setCurrentIndex(static_cast<int>(settings.baudrate));
+        ui->flowControlCombobox->setCurrentIndex(static_cast<int>(settings.flowControl));
+        ui->parityCombobox->setCurrentIndex(static_cast<int>(settings.parity));
+        ui->stopBitCombobox->setCurrentIndex(static_cast<int>(settings.stopBits));
+        ui->byteSizeCombobox->setCurrentIndex(static_cast<int>(settings.byteSize));
+
+        SetSaveNeededWarningVisible(false);
+    }
 }
 
 void MainWindow::OpenRecentFile()
@@ -119,6 +170,19 @@ void MainWindow::OpenRecentFile()
 
         // Enable widgets if session is opened successfully
         SetEnableWidgets(result);
+
+        ui->actionSaveSession->setEnabled(result);
+        ui->actionCloseSession->setEnabled(result);
+
+        if(result){
+            bool ok = false;
+
+            SessionProtocolType currentProtocol = sessionManager->GetActiveSettings(ok).protocol;
+
+            if(ok){
+                ProtocolTypeChanged(static_cast<int>(currentProtocol));
+            }
+        }
     }
 }
 
@@ -156,6 +220,19 @@ void MainWindow::OpenSessionActionTriggered()
 
             // Enable widgets if session is opened successfully
             SetEnableWidgets(result);
+
+            ui->actionSaveSession->setEnabled(result);
+            ui->actionCloseSession->setEnabled(result);
+
+            if(result){
+                bool ok = false;
+
+                SessionProtocolType currentProtocol = sessionManager->GetActiveSettings(ok).protocol;
+
+                if(ok){
+                    ProtocolTypeChanged(static_cast<int>(currentProtocol));
+                }
+            }
         }
     }
 }
@@ -163,6 +240,9 @@ void MainWindow::OpenSessionActionTriggered()
 void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation)
 {
     bool sessionCreatedSuccess = sessionManager->CreateNewSession(sessionName, sessionLocation);
+
+    // Zero is the index of the udp protocol. Which is the default protocol type
+    ProtocolTypeChanged(0);
 
     // If session creation is success, enable widgets
     SetEnableWidgets(sessionCreatedSuccess);
@@ -172,25 +252,127 @@ void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString se
     ui->actionSaveSession->setEnabled(sessionCreatedSuccess);
 }
 
-void MainWindow::SessionProtocolTypeUpdated(int index)
+void MainWindow::SaveSessionActionTriggered()
 {
-    // Stop the current session since the protocol is changed
-    sessionManager->StopSession();
+    sessionManager->SaveActiveSession();
 
-    SessionProtocol protocol = static_cast<SessionProtocol>(index);
+    SetSaveNeededWarningVisible(false);
+}
 
-    ui->serialDeviceCombobox->setEnabled(protocol == SessionProtocol::Serial);
-    ui->updateSerialDevicesList->setEnabled(protocol == SessionProtocol::Serial);
-    ui->baudrateCombobox->setEnabled(protocol == SessionProtocol::Serial);
-    ui->flowControlCombobox->setEnabled(protocol == SessionProtocol::Serial);
-    ui->parityCombobox->setEnabled(protocol == SessionProtocol::Serial);
-    ui->stopBitCombobox->setEnabled(protocol == SessionProtocol::Serial);
-    ui->byteSizeCombobox->setEnabled(protocol == SessionProtocol::Serial);
+void MainWindow::ProtocolTypeChanged(int index)
+{
+    SessionProtocolType protocol = static_cast<SessionProtocolType>(index);
 
-    ui->toIp->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
-    ui->toPort->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
-    ui->fromIp->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
-    ui->fromPort->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
-    ui->rxCheckbox->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
-    ui->txCheckbox->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->serialDeviceCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->updateSerialDevicesList->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->baudrateCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->flowControlCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->parityCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->stopBitCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+    ui->byteSizeCombobox->setEnabled(protocol == SessionProtocolType::PROTOCOL_SERIAL);
+
+    ui->toIp->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+    ui->toPort->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+    ui->fromIp->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+    ui->fromPort->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+    ui->rxCheckbox->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+    ui->txCheckbox->setEnabled(protocol == SessionProtocolType::PROTOCOL_UDP || protocol == SessionProtocolType::PROTOCOL_TCP);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_PROTOCOL_TYPE, QVariant::fromValue(protocol));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::ToIpChanged(QString value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_TO_IP, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::ToPortChanged(int value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_TO_PORT, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::FromIpChanged(QString value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_FROM_IP, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::FromPortChanged(int value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_FROM_PORT, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::TxValueChanged(Qt::CheckState value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_TX_ENABLED, QVariant::fromValue(value == Qt::Checked));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::RxValueChanged(Qt::CheckState value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_RX_ENABLED, QVariant::fromValue(value == Qt::Checked));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::SerialDeviceChanged(QString value)
+{
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_SERIAL_DEVICE, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::BaudrateChanged(int index)
+{
+    SessionBaudrate value = static_cast<SessionBaudrate>(index);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_SERIAL_DEVICE, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::FlowControlChanged(int index)
+{
+    SessionFlowControl value = static_cast<SessionFlowControl>(index);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_FLOW_CONTROL, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::ParityChanged(int index)
+{
+    SessionParity value = static_cast<SessionParity>(index);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_PARITY, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::StopBitsChanged(int index)
+{
+    SessionStopBits value = static_cast<SessionStopBits>(index);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_STOP_BITS, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
+}
+
+void MainWindow::ByteSizeChanged(int index)
+{
+    SessionByteSize value = static_cast<SessionByteSize>(index);
+
+    sessionManager->SessionSettingsValueChanged(SESSION_SETTINGS_BYTE_SIZE, QVariant::fromValue(value));
+
+    SetSaveNeededWarningVisible(true);
 }
