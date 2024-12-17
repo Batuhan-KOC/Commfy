@@ -3,6 +3,12 @@
 
 #include <QObject>
 
+enum SessionProtocol{
+    Udp,
+    Tcp,
+    Serial
+};
+
 class SessionType : public QObject
 {
     Q_OBJECT
@@ -14,6 +20,12 @@ public:
     void SaveSession();
 
     void CloseSession();
+
+    // Start session execution
+    void StartSession();
+
+    // Stop session execution
+    void StopSession();
 
 private:
     QString sessionName;

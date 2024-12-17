@@ -100,6 +100,8 @@ void MainWindow::InitializeLayoutsAndOtherWidgets()
     ui->centralwidget->setLayout(ui->centralMasterLayout);
     ui->rulesTab->setLayout(ui->rulesTabLayout);
     ui->monitoringTab->setLayout(ui->monitoringTabLayout1);
+
+    connect(ui->protocolSelection, SIGNAL(currentIndexChanged(int)), this, SLOT(SessionProtocolTypeUpdated(int)));
 }
 
 void MainWindow::OpenRecentFile()
@@ -168,4 +170,27 @@ void MainWindow::NewSessionNameAndLocationChosen(QString sessionName, QString se
     // Enable the close and save actions if session creation is successfull
     ui->actionCloseSession->setEnabled(sessionCreatedSuccess);
     ui->actionSaveSession->setEnabled(sessionCreatedSuccess);
+}
+
+void MainWindow::SessionProtocolTypeUpdated(int index)
+{
+    // Stop the current session since the protocol is changed
+    sessionManager->StopSession();
+
+    SessionProtocol protocol = static_cast<SessionProtocol>(index);
+
+    ui->serialDeviceCombobox->setEnabled(protocol == SessionProtocol::Serial);
+    ui->updateSerialDevicesList->setEnabled(protocol == SessionProtocol::Serial);
+    ui->baudrateCombobox->setEnabled(protocol == SessionProtocol::Serial);
+    ui->flowControlCombobox->setEnabled(protocol == SessionProtocol::Serial);
+    ui->parityCombobox->setEnabled(protocol == SessionProtocol::Serial);
+    ui->stopBitCombobox->setEnabled(protocol == SessionProtocol::Serial);
+    ui->byteSizeCombobox->setEnabled(protocol == SessionProtocol::Serial);
+
+    ui->toIp->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->toPort->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->fromIp->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->fromPort->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->rxCheckbox->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
+    ui->txCheckbox->setEnabled(protocol == SessionProtocol::Udp || protocol == SessionProtocol::Tcp);
 }

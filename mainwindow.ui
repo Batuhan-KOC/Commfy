@@ -334,7 +334,7 @@
        <x>10</x>
        <y>10</y>
        <width>221</width>
-       <height>591</height>
+       <height>643</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="controlPanelMasterLayout">
@@ -425,6 +425,9 @@
             <height>22</height>
            </size>
           </property>
+          <property name="text">
+           <string>127.0.0.1</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -500,6 +503,9 @@
             <height>22</height>
            </size>
           </property>
+          <property name="text">
+           <string>127.0.0.1</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -565,6 +571,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="updateSerialDevicesList">
+        <property name="text">
+         <string>Update List</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="baudrateInformation">
         <property name="text">
          <string>Baudrate</string>
@@ -576,6 +589,154 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <property name="currentIndex">
+         <number>12</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>50</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>75</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>110</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>134</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>150</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>300</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>600</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1800</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2400</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>4800</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>9600</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>19200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>38400</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>57600</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>115200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>230400</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>460800</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>500000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>576000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>921600</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1000000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1152000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2000000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2500000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>3000000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>3500000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>4000000</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -590,6 +751,26 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Software Flow Control</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>RTC/CTS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>DSR/DTR</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -604,6 +785,31 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Even</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Odd</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mark</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Space</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -618,6 +824,58 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <item>
+         <property name="text">
+          <string>One</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>One Point Five</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Two</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="byteSizeLabel">
+        <property name="text">
+         <string>Byte Size</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="byteSizeCombobox">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="currentIndex">
+         <number>3</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>5 Bits</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>6 Bits</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>7 Bits</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>8 Bits</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>

@@ -32,6 +32,12 @@ public:
     // Open an existing session by it's file location
     bool OpenSession(QString location);
 
+    // Start session execution
+    void StartSession();
+
+    // Stop session execution
+    void StopSession();
+
     // Adding the session file path to the SESSION_FILE_NAME file
     void AddNewSessionToTheSessionsFile(QString sessionFilePath);
 

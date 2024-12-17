@@ -170,6 +170,20 @@ bool SessionManager::OpenSession(QString location)
     return true;
 }
 
+void SessionManager::StartSession()
+{
+    if(activeSession != nullptr){
+        activeSession->StartSession();
+    }
+}
+
+void SessionManager::StopSession()
+{
+    if(activeSession != nullptr){
+        activeSession->StopSession();
+    }
+}
+
 void SessionManager::AddNewSessionToTheSessionsFile(QString sessionFilePath)
 {
     // Open the session file
