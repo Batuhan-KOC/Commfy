@@ -283,6 +283,7 @@
      <string>File</string>
     </property>
     <addaction name="actionCreateNewSession"/>
+    <addaction name="actionOpenRecent"/>
     <addaction name="actionOpenSession"/>
     <addaction name="actionCloseSession"/>
     <addaction name="actionSaveSession"/>
@@ -656,6 +657,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionOpenRecent">
+   <property name="text">
+    <string>Open Recent</string>
    </property>
   </action>
  </widget>
