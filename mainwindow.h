@@ -45,5 +45,8 @@ private slots:
 
     // Create new session dialog has returned a name and location. Create a new session based on these values
     void NewSessionNameAndLocationChosen(QString sessionName, QString sessionLocation);
+
+    // Session type option is updated on the ui
+    void SessionProtocolTypeUpdated(int index);
 };
 #endif // MAINWINDOW_H

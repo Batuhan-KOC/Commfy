@@ -20,3 +20,13 @@ void SessionType::CloseSession()
 {
 
 }
+
+void SessionType::StartSession()
+{
+
+}
+
+void SessionType::StopSession()
+{
+
+}
