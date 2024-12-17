@@ -104,7 +104,20 @@ void MainWindow::InitializeLayoutsAndOtherWidgets()
 
 void MainWindow::OpenRecentFile()
 {
+    // Get the pointer to the sender object
+    QObject* senderObj = sender();
 
+    // Check if the sender is a QAction
+    QAction* action = qobject_cast<QAction*>(senderObj);
+    if (action) {
+        // Get the text of the QAction which is the file location of the session
+        QString sessionFileLocation = action->text();
+
+        bool result = sessionManager->OpenSession(sessionFileLocation);
+
+        // Enable widgets if session is opened successfully
+        SetEnableWidgets(result);
+    }
 }
 
 void MainWindow::CreateNewSessionActionTriggered()
