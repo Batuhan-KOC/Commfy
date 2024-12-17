@@ -2,9 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-#include <Qsci/qsciscintilla.h>
-#include <Qsci/qscilexerpython.h>
+#include "src/session/sessionmanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +21,16 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    SessionManager* sessionManager;
+
+    QAction* recentSessionsList[MAXIMUM_RECENT_FILE_LIMIT] = {nullptr};
+
+    // Setup the rule editor in the tab widget with qsciscintilla widget
     void SetupRuleEditor();
+    // Initialize session manager and get the recent session locations
+    void InitializeSessionManager();
+
+private slots:
+    void OpenRecentFile();
 };
 #endif // MAINWINDOW_H
