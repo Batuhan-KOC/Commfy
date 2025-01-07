@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 
-#include <Qsci/qscilexerpython.h>
+#include <Qsci/qscilexerlua.h>
 
 #include "src/ui/createnewsessiondialog.h"
 
@@ -39,8 +39,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::SetupRuleEditor()
 {
-    // Set lexer for Python
-    QsciLexerPython *lexer = new QsciLexerPython();
+    // Set lexer for Lua
+    QsciLexerLua *lexer = new QsciLexerLua();
     ui->rulesEditor->setLexer(lexer);
 
     // Set auto-completion
