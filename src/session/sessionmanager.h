@@ -7,14 +7,6 @@
 
 #define MAXIMUM_RECENT_FILE_LIMIT 20
 
-#define SESSION_PYTHON_FOLDER_NAME "python"
-#define SOURCE_PYTHON_FOLDER_NAME "python"
-#ifdef DEBUG_BUILD
-#define SOURCE_PYTHON_FOLDER_RELATIVE_PATH_COMPLETER "/../"
-#else
-#define SOURCE_PYTHON_FOLDER_RELATIVE_PATH_COMPLETER "/"
-#endif
-
 #define SESSION_FILE_NAME "sessions.commfy"
 
 class SessionManager : public QObject

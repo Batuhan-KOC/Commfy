@@ -99,30 +99,6 @@ bool SessionManager::CreateNewSession(QString name, QString location)
 
     dir.cd(name);
 
-    // Create the new session's python folder
-    if (!dir.mkdir(SESSION_PYTHON_FOLDER_NAME))
-    {
-        qDebug() << "Failed to create directory:" << SESSION_PYTHON_FOLDER_NAME;
-        return false;
-    }
-
-    dir.cdUp();
-
-    // Copy the source python folder to the new session folder
-    QString pythonFolderPath = QCoreApplication::applicationDirPath() + SOURCE_PYTHON_FOLDER_RELATIVE_PATH_COMPLETER + SOURCE_PYTHON_FOLDER_NAME;
-    QDir pythonDir(pythonFolderPath);
-    if (!pythonDir.exists())
-    {
-        qDebug() << "Source python folder does not exist:" << pythonFolderPath;
-        return false;
-    }
-
-    if (!CopyDirectory(pythonFolderPath, sessionFolderPath + "/" + SESSION_PYTHON_FOLDER_NAME))
-    {
-        qDebug() << "Failed to copy python directory to session folder";
-        return false;
-    }
-
     // Create the <name>.commfy file
     QString commfyFilePath = sessionFolderPath + "/" + name + ".commfy";
     QFile commfyFile(commfyFilePath);
